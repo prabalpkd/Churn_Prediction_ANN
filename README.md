@@ -77,32 +77,46 @@ An **Artificial Neural Network (ANN)** built using TensorFlow / Keras:
 
 ## 📈 Model Evaluation
 
-Metrics used:
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- Confusion Matrix
+The trained model was evaluated on an unseen test dataset using multiple classification metrics to ensure both statistical validity and business relevance.
 
-A custom probability threshold (`0.45`) was used instead of the default `0.5` to improve recall.
+### 🔢 Performance Metrics
+
+- **Accuracy:** **75%**
+- **Recall (Churn = Yes):** **83%**
+- **Precision (Churn = Yes):** Moderate, reflecting a recall-focused optimization
+- **F1-score:** Balanced performance across classes
+
+A custom decision threshold (`0.45`) was applied instead of the default `0.5` to improve the detection of churn-prone customers.
 
 ---
 
 ## 🔍 Why Recall Is More Important Than Accuracy
 
-In a **churn prediction problem**, the cost of errors is **asymmetric**:
+While the model achieves an overall **accuracy of 75%**, accuracy alone is not sufficient for churn prediction tasks due to the **asymmetric cost of misclassification**.
 
-| Scenario | Business Impact |
-|--------|-----------------|
-| False Positive (predict churn, customer stays) | Minor cost (offer given unnecessarily) |
-| **False Negative (predict no churn, customer leaves)** | **High cost (lost customer + revenue)** |
+### 🎯 Business Rationale
 
-### 🎯 Why Recall Matters Most
-- **Recall (Churn = Yes)** measures how many actual churners are correctly identified.
-- Missing a churner means **no retention action is taken**, resulting in permanent customer loss.
-- It is **better to flag more potential churners** (even with some false alarms) than to miss them.
+| Prediction Outcome | Business Impact |
+|--------------------|-----------------|
+| False Positive (predict churn, customer stays) | Low cost (unnecessary retention offer) |
+| **False Negative (predict no churn, customer actually churns)** | **High cost (customer and revenue loss)** |
 
-📌 Therefore, this project **optimizes recall over pure accuracy**, aligning the model with **real-world business priorities**.
+### 📌 Emphasis on Recall
+
+- A **recall of 83% for the churn class** indicates that the model successfully identifies **83 out of every 100 customers who actually churn**
+- Missing a churner results in **no retention action**, leading to irreversible customer loss
+- From a business standpoint, it is preferable to flag more potential churners, even at the cost of some false positives
+
+➡️ For these reasons, this project **prioritizes recall over raw accuracy**, ensuring better alignment with real-world customer retention strategies.
+
+---
+
+## 🧠 Optimization Strategy
+
+- Class imbalance addressed using **class weights**
+- Decision threshold tuned to maximize recall
+- Dropout layers applied to reduce overfitting
+- Evaluation focused on **positive (churn) class performance**
 
 ---
 
