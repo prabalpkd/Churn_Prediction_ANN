@@ -185,7 +185,7 @@ Therefore, `customerID` is excluded from the training and inference feature vect
 Although `customerID` is removed from the model input, it is **retained in the production layer** for identification and tracking purposes.
 
 #### Production Workflow
-
+```
 Input Data
 │
 ├── customerID → retained for identification
@@ -195,7 +195,7 @@ Model Prediction
 │
 └── Output:
 customerID + churn probability + churn label
-
+```
 
 ### 🔁 Practical Implementation Strategy
 
