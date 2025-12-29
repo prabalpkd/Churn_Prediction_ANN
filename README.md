@@ -139,6 +139,7 @@ Saved files used in the app:
 ## 📁 Project Structure
 
 Churn_Prediction/
+```
 │
 ├── app.py # Streamlit application
 ├── churn_model.keras # Trained ANN model
@@ -149,7 +150,7 @@ Churn_Prediction/
 ├── README.md # Project documentation
 └── Churn_Prediction.ipynb # Model training notebook
 
-
+```
 ---
 
 ## 🛠️ Tech Stack
