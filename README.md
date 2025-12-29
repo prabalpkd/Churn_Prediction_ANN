@@ -137,9 +137,8 @@ Saved files used in the app:
 ---
 
 ## 📁 Project Structure
-
-Churn_Prediction/
 ```
+Churn_Prediction/
 │
 ├── app.py # Streamlit application
 ├── churn_model.keras # Trained ANN model
