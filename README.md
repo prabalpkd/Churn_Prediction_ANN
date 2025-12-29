@@ -163,6 +163,72 @@ Churn_Prediction/
 
 ---
 
+## 🆔 Handling Customer Identification in Production
+
+During model training, the `customerID` column is intentionally removed from the feature set. This design choice is **by intent and best practice**, not a limitation.
+
+### ❌ Why `customerID` Is Not Used as a Model Feature
+
+- `customerID` is a **unique identifier**, not a predictive feature
+- It does not contribute meaningful information for churn prediction
+- Including it can lead to:
+  - Model memorization instead of learning
+  - Overfitting
+  - Poor generalization to new customers
+
+Therefore, `customerID` is excluded from the training and inference feature vector.
+
+---
+
+### ✅ How Customer Identity Is Preserved in Production
+
+Although `customerID` is removed from the model input, it is **retained in the production layer** for identification and tracking purposes.
+
+#### Production Workflow
+
+Input Data
+│
+├── customerID → retained for identification
+├── customer attributes → passed to the model
+│
+Model Prediction
+│
+└── Output:
+customerID + churn probability + churn label
+
+
+### 🔁 Practical Implementation Strategy
+
+1. Accept `customerID` as part of the incoming request (UI or API)
+2. Drop `customerID` **only before model prediction**
+3. Attach `customerID` back to the prediction output
+
+This ensures:
+- The model receives only valid predictive features
+- Each prediction can be uniquely traced back to a customer
+- Seamless integration with CRM and retention systems
+
+---
+
+### 🏢 Real-World Business Usage
+
+In production environments, `customerID` is essential for:
+- Triggering customer retention actions
+- CRM system integration
+- Logging and auditing predictions
+- Monitoring model performance over time
+- Linking predictions with customer outcomes
+
+---
+
+### 📌 Key Takeaway
+
+> `customerID` should be excluded from model training but retained in production pipelines to associate predictions with real customers and enable business actions.
+
+This separation of concerns reflects **industry-standard machine learning system design**.
+
+---
+
 ## 📌 Future Improvements
 
 - SHAP-based model explainability
